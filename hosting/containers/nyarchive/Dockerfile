@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 RUN apt-get update \
-    && apt-get install -y snap git \
+    && apt-get install -y snapd git \
     && snap install dotnet-sdk --classic --channel=6.0 \
     && snap alias dotnet-sdk.dotnet dotnet
 
