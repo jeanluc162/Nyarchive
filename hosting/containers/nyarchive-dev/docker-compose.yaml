@@ -1,0 +1,12 @@
+version: '2'
+services:
+  DB:
+    container_name: 'nyarchive_Database'
+    image: 'mariadb'
+    environment: 
+      MARIADB_ROOT_PASSWORD: '' #Root-Passwort eintragen
+      MARIADB_DATABASE: 'nyarchive'
+    volumes:
+      - ':/var/lib/mysql/' #Persistenten DB-Pfad eintragen
+    ports:
+      - 3306:3306

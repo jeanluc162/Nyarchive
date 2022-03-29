@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Nyarchive.Model
+namespace Nyarchive.Server.Model
 {
     public abstract class BaseEntity
     {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Nyarchive.Model
+namespace Nyarchive.Server.Model
 {
     public class Label:BaseEntity
     {

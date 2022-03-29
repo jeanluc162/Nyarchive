@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Nyarchive.Model
+namespace Nyarchive.Server.Model
 {
     public class NyarchiveDbContext:DbContext
     {

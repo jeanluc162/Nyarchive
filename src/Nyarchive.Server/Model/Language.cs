@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Nyarchive.Model
+namespace Nyarchive.Server.Model
 {
     [Index(nameof(Name), IsUnique = true)]
     public class Language:BaseEntity
