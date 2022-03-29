@@ -1,7 +1,7 @@
 version: '2'
 services:
   DB:
-    container_name: 'nyarchive_Database'
+    container_name: 'nyarchive_database'
     image: 'mariadb'
     environment: 
       MARIADB_ROOT_PASSWORD: '' #Root-Passwort eintragen
@@ -10,3 +10,16 @@ services:
       - ':/var/lib/mysql/' #Persistenten DB-Pfad eintragen
     ports:
       - 3306:3306
+  API:
+    container_name: 'nyarchive_api'
+    build:
+      context: ../nyarchive
+      dockerfile: Dockerfile
+    depends_on:
+      - DB
+    ports:
+      - 'Host-IP:Host-Port:443'
+    environment:
+      MARIADB_USER: ''
+      MARIADB_PASSWORD: ''
+      MARIADB_DATABASE: 'nyarchive'
