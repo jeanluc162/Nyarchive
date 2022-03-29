@@ -18,7 +18,7 @@ services:
     depends_on:
       - DB
     ports:
-      - 'Host-IP:Host-Port:443'
+      - '127.10.0.1:443:443' #Host-IP:Host-Port:Container-Port
     environment:
       MARIADB_USER: ''
       MARIADB_PASSWORD: ''
