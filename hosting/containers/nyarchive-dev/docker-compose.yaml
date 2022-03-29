@@ -1,6 +1,6 @@
 version: '2'
 services:
-  DB:
+  db:
     container_name: 'nyarchive_database'
     image: 'mariadb'
     environment: 
@@ -10,13 +10,13 @@ services:
       - ':/var/lib/mysql/' #Persistenten DB-Pfad eintragen
     ports:
       - 3306:3306
-  API:
+  api:
     container_name: 'nyarchive_api'
     build:
       context: ../nyarchive
       dockerfile: Dockerfile
     depends_on:
-      - DB
+      - db
     ports:
       - '127.10.0.1:443:443' #Host-IP:Host-Port:Container-Port
     environment:
