@@ -1,14 +1,13 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Nyarchive.Server.Model
 {
     public class Translation:BaseEntity
     {
-        public Guid LabelId {get;set;}
-        public Guid LanguageId {get;set;}
-        [ForeignKey(nameof(LabelId))]
+        [Required]
         public Label Label {get;set;}
-        [ForeignKey(nameof(LanguageId))]
+        [Required]
         public Language Language {get;set;}
     }
 }
