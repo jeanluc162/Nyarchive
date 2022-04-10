@@ -18,15 +18,40 @@ namespace Nyarchive.Server.Model
         {
             modelBuilder.Entity<Language>()
                 .HasData(
-                    new Language
+                    new Language { Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "English" },
+                    new Language { Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), Name = "Deutsch" }
+                );
+
+            modelBuilder.Entity<Label>()
+                .HasData(
+                    new Label { Id = Guid.Parse("00000000-0000-0000-0000-000000000001") }
+                );
+
+            modelBuilder.Entity<Translation>()
+                .HasData(
+                    new
                     {
                         Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                        Name = "English"
+                        LabelId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        LanguageId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Text = "kilocalories"
                     },
-                    new Language
+                    new
                     {
-                        Id = Guid.Parse("00000000-0000-0000-0000-000000000000"),
-                        Name = "Deutsch"
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        LabelId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        LanguageId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        Text = "Kilokalorien"
+                    }
+                );
+
+            modelBuilder.Entity<Unit>()
+                .HasData(
+                    new
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        NameId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Symbol = "kcal"
                     }
                 );
         }

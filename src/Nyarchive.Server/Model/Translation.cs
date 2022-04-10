@@ -9,5 +9,7 @@ namespace Nyarchive.Server.Model
         public Label Label {get;set;}
         [Required]
         public Language Language {get;set;}
+        [Required]
+        public String Text {get;set;}
     }
 }

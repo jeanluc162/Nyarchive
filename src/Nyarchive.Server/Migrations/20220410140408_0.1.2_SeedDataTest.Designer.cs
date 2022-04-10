@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nyarchive.Server.Model;
 
@@ -10,9 +11,10 @@ using Nyarchive.Server.Model;
 namespace Nyarchive.Server.Migrations
 {
     [DbContext(typeof(NyarchiveDbContext))]
-    partial class NyarchiveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410140408_0.1.2_SeedDataTest")]
+    partial class _012_SeedDataTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,12 +143,6 @@ namespace Nyarchive.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Labels");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000001")
-                        });
                 });
 
             modelBuilder.Entity("Nyarchive.Server.Model.Language", b =>
@@ -204,10 +200,6 @@ namespace Nyarchive.Server.Migrations
                     b.Property<Guid>("LanguageId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LabelId");
@@ -215,22 +207,6 @@ namespace Nyarchive.Server.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("Translations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            LabelId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            LanguageId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            Text = "kilocalories"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000002"),
-                            LabelId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            LanguageId = new Guid("00000000-0000-0000-0000-000000000002"),
-                            Text = "Kilokalorien"
-                        });
                 });
 
             modelBuilder.Entity("Nyarchive.Server.Model.Unit", b =>
@@ -254,14 +230,6 @@ namespace Nyarchive.Server.Migrations
                         .IsUnique();
 
                     b.ToTable("Units");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            NameId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            Symbol = "kcal"
-                        });
                 });
 
             modelBuilder.Entity("Nyarchive.Server.Model.Article", b =>

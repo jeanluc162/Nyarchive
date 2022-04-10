@@ -9,6 +9,6 @@ namespace Nyarchive.Server.Model
         //Sachen die Beschriftungen brauchen
         public ICollection<Article> Articles {get;set;}
         public ICollection<Product> Products {get;set;}
-        public ICollection<Unit> Unit {get;set;}
+        public ICollection<Unit> Units {get;set;}
     }
 }
