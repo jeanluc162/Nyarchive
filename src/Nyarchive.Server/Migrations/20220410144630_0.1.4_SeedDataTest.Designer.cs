@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nyarchive.Server.Model;
 
@@ -10,9 +11,10 @@ using Nyarchive.Server.Model;
 namespace Nyarchive.Server.Migrations
 {
     [DbContext(typeof(NyarchiveDbContext))]
-    partial class NyarchiveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410144630_0.1.4_SeedDataTest")]
+    partial class _014_SeedDataTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,16 +92,6 @@ namespace Nyarchive.Server.Migrations
                     b.HasIndex("ArticleId");
 
                     b.ToTable("ArticleTransactionAdds");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ArticleId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ExpirationDate = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Tag = "",
-                            Timestamp = new DateTime(2022, 4, 10, 16, 30, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("Nyarchive.Server.Model.ArticleTransactionRemove", b =>
@@ -127,16 +119,6 @@ namespace Nyarchive.Server.Migrations
                     b.HasIndex("UnitId");
 
                     b.ToTable("ArticleTransactionRemoves");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ArticleTransactionAddId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            QuantityOfUnit = 250m,
-                            Timestamp = new DateTime(2022, 4, 10, 17, 45, 0, 0, DateTimeKind.Unspecified),
-                            UnitId = new Guid("00000000-0000-0000-0000-000000000002")
-                        });
                 });
 
             modelBuilder.Entity("Nyarchive.Server.Model.AssignedNutritionalValue", b =>
@@ -403,7 +385,7 @@ namespace Nyarchive.Server.Migrations
             modelBuilder.Entity("Nyarchive.Server.Model.ArticleTransactionRemove", b =>
                 {
                     b.HasOne("Nyarchive.Server.Model.ArticleTransactionAdd", "ArticleTransactionAdd")
-                        .WithMany("ArticleTransactionRemoves")
+                        .WithMany("articleTransactionRemoves")
                         .HasForeignKey("ArticleTransactionAddId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -488,7 +470,7 @@ namespace Nyarchive.Server.Migrations
 
             modelBuilder.Entity("Nyarchive.Server.Model.ArticleTransactionAdd", b =>
                 {
-                    b.Navigation("ArticleTransactionRemoves");
+                    b.Navigation("articleTransactionRemoves");
                 });
 
             modelBuilder.Entity("Nyarchive.Server.Model.Label", b =>

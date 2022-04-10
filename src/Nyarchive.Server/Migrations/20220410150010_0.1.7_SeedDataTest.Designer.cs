@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nyarchive.Server.Model;
 
@@ -10,9 +11,10 @@ using Nyarchive.Server.Model;
 namespace Nyarchive.Server.Migrations
 {
     [DbContext(typeof(NyarchiveDbContext))]
-    partial class NyarchiveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410150010_0.1.7_SeedDataTest")]
+    partial class _017_SeedDataTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,7 +81,6 @@ namespace Nyarchive.Server.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Tag")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("Timestamp")
@@ -90,16 +91,6 @@ namespace Nyarchive.Server.Migrations
                     b.HasIndex("ArticleId");
 
                     b.ToTable("ArticleTransactionAdds");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ArticleId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ExpirationDate = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Tag = "",
-                            Timestamp = new DateTime(2022, 4, 10, 16, 30, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("Nyarchive.Server.Model.ArticleTransactionRemove", b =>
@@ -127,16 +118,6 @@ namespace Nyarchive.Server.Migrations
                     b.HasIndex("UnitId");
 
                     b.ToTable("ArticleTransactionRemoves");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ArticleTransactionAddId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            QuantityOfUnit = 250m,
-                            Timestamp = new DateTime(2022, 4, 10, 17, 45, 0, 0, DateTimeKind.Unspecified),
-                            UnitId = new Guid("00000000-0000-0000-0000-000000000002")
-                        });
                 });
 
             modelBuilder.Entity("Nyarchive.Server.Model.AssignedNutritionalValue", b =>

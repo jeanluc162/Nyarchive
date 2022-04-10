@@ -24,34 +24,131 @@ namespace Nyarchive.Server.Model
 
             modelBuilder.Entity<Label>()
                 .HasData(
-                    new Label { Id = Guid.Parse("00000000-0000-0000-0000-000000000001") }
+                    new Label { Id = Guid.Parse("00000000-0000-0000-0000-000000000001") }, //Unit: Kilokalorien
+                    new Label { Id = Guid.Parse("00000000-0000-0000-0000-000000000002") }, //Unit: Gramm
+                    new Label { Id = Guid.Parse("00000000-0000-0000-0000-000000000003") }, //Product: Mehl
+                    new Label { Id = Guid.Parse("00000000-0000-0000-0000-000000000004") } //Article: JA! Mehl
                 );
 
             modelBuilder.Entity<Translation>()
                 .HasData(
-                    new
+                    new //Unit: Kilokalorien: Englisch
                     {
                         Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                         LabelId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                         LanguageId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                         Text = "kilocalories"
                     },
-                    new
+                    new //Unit: Kilokalorien: Deutsch
                     {
                         Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
                         LabelId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                         LanguageId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
                         Text = "Kilokalorien"
+                    },
+                    new //Unit: Gramm: Englisch
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                        LabelId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        LanguageId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Text = "gramm"
+                    },
+                    new //Unit: Gramm: Deutsch
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                        LabelId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        LanguageId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        Text = "Gramm"
+                    },
+                    new //Product: Mehl: Englisch
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000005"),
+                        LabelId = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                        LanguageId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Text = "Flour"
+                    },
+                    new //Product: Mehl: Deutsch
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+                        LabelId = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                        LanguageId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        Text = "Mehl"
+                    },
+                    new //Article: JA! Mehl: Englisch
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000007"),
+                        LabelId = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                        LanguageId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Text = "JA! Flour"
+                    },
+                    new //Article: JA! Mehl: Deutsch
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000008"),
+                        LabelId = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                        LanguageId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        Text = "JA! Mehl"
                     }
                 );
 
             modelBuilder.Entity<Unit>()
                 .HasData(
-                    new
+                    new //Kilokalorien
                     {
                         Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                         NameId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                         Symbol = "kcal"
+                    },
+                    new //Gramm
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        NameId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        Symbol = "g"
+                    }
+                );
+
+            modelBuilder.Entity<Product>()
+                .HasData(
+                    new //Mehl
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        NameId = Guid.Parse("00000000-0000-0000-0000-000000000003")
+                    }
+                );
+
+            modelBuilder.Entity<Article>()
+                .HasData(
+                    new //JA! Mehl
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Barcode = new Byte[] { 6, 9, 4, 2, 0 },
+                        NameId = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                        UnitId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        QuantityOfUnit = (Decimal)500.0,
+                        ProductId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                    }
+                );
+
+            modelBuilder.Entity<ArticleTransactionAdd>()
+                .HasData(
+                    new //Einkauf von JA! Mehl
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Timestamp = new DateTime(2022, 4, 10, 16, 30, 0),
+                        ArticleId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        ExpirationDate = new DateTime(2024, 3, 1),
+                        Tag = ""
+                    }
+                );
+
+            modelBuilder.Entity<ArticleTransactionRemove>()
+                .HasData(
+                    new //Verbrauch von 250g JA! Mehl
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Timestamp = new DateTime(2022, 4, 10, 17, 45, 0),
+                        ArticleTransactionAddId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        UnitId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        QuantityOfUnit = (Decimal)250.0
                     }
                 );
         }

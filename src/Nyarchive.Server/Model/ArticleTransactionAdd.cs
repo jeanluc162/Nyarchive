@@ -10,6 +10,6 @@ namespace Nyarchive.Server.Model
         public Article Article { get; set; }
         public String Tag { get; set; }
         public DateTime? ExpirationDate { get; set; }
-        public ICollection<ArticleTransactionRemove> articleTransactionRemoves { get; set; }
+        public ICollection<ArticleTransactionRemove> ArticleTransactionRemoves { get; set; }
     }
 }

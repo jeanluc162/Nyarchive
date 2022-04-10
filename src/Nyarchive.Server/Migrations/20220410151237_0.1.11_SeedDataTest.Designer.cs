@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nyarchive.Server.Model;
 
@@ -10,9 +11,10 @@ using Nyarchive.Server.Model;
 namespace Nyarchive.Server.Migrations
 {
     [DbContext(typeof(NyarchiveDbContext))]
-    partial class NyarchiveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410151237_0.1.11_SeedDataTest")]
+    partial class _0111_SeedDataTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,7 +81,6 @@ namespace Nyarchive.Server.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Tag")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("Timestamp")
@@ -97,7 +98,6 @@ namespace Nyarchive.Server.Migrations
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
                             ArticleId = new Guid("00000000-0000-0000-0000-000000000001"),
                             ExpirationDate = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Tag = "",
                             Timestamp = new DateTime(2022, 4, 10, 16, 30, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
