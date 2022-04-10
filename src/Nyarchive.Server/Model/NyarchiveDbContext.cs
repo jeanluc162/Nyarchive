@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Nyarchive.Server.Model
 {
-    public class NyarchiveDbContext:DbContext
+    public class NyarchiveDbContext: IdentityDbContext<Auth.User, Auth.Role, Guid>
     {
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleTransactionAdd> ArticleTransactionAdds { get; set; }
@@ -16,6 +17,8 @@ namespace Nyarchive.Server.Model
         public NyarchiveDbContext(DbContextOptions<NyarchiveDbContext> options) : base(options){ }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Language>()
                 .HasData(
                     new Language { Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "English" },
