@@ -5,7 +5,7 @@ using Nyarchive.Server.Model.Auth;
 
 namespace Nyarchive.Server.Model
 {
-    public class NyarchiveDbContext: IdentityDbContext<User, Role, Guid>
+    public class NyarchiveDbContext: IdentityDbContext<User, Role, Guid, IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
     {
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleTransactionAdd> ArticleTransactionAdds { get; set; }
@@ -165,8 +165,8 @@ namespace Nyarchive.Server.Model
                     new Role
                     {
                         Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                        Name = "admin",
-                        NormalizedName = "admin".ToUpper()
+                        Name = Role.RoleNames.Admin,
+                        NormalizedName = Role.RoleNames.Admin.ToUpper()
                     }
                 );
 
@@ -179,14 +179,14 @@ namespace Nyarchive.Server.Model
                         Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                         UserName = "admin",
                         NormalizedUserName = "admin".ToUpper(),
-                        PasswordHash = PasswordHasher.HashPassword(null, Role.RoleNames.Admin)
+                        PasswordHash = PasswordHasher.HashPassword(null, "admin")
                     }
                 );
 
             //Assign the admin-role to the admin-user
             //modelBuilder.Entity<IdentityUserRole<string>>().HasKey(iur => new { iur.RoleId, iur.UserId });
-            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(
-                new IdentityUserRole<Guid>
+            modelBuilder.Entity<UserRole>().HasData(
+                new UserRole
                 {
                     RoleId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                     UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")

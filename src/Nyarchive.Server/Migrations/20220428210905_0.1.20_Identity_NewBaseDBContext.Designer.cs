@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nyarchive.Server.Model;
 
@@ -10,9 +11,10 @@ using Nyarchive.Server.Model;
 namespace Nyarchive.Server.Migrations
 {
     [DbContext(typeof(NyarchiveDbContext))]
-    partial class NyarchiveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428210905_0.1.20_Identity_NewBaseDBContext")]
+    partial class _0120_Identity_NewBaseDBContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,6 +84,28 @@ namespace Nyarchive.Server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -277,7 +301,7 @@ namespace Nyarchive.Server.Migrations
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ConcurrencyStamp = "027ca360-1171-40f9-ab75-53d5bafc35f6",
+                            ConcurrencyStamp = "4bab333d-6b7c-4df4-b3d0-f63d166961e2",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -356,36 +380,14 @@ namespace Nyarchive.Server.Migrations
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df8ce448-d47f-4d74-9347-fdc947cc1d4a",
+                            ConcurrencyStamp = "0fae5db5-da2d-40cc-b043-201f4612e5ee",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEMStjZaYESuH+TlbFHCIO2MOcYzFQpd7jIOksfArgBez7O4+Vmr/t71JsQrOTSYvA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF62lrNuqSKL2Ud+BTwjLq7VlwBIYQfTlDqTvbcxsigADWPMuy1helRDe+Ap0e2c1A==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "admin"
-                        });
-                });
-
-            modelBuilder.Entity("Nyarchive.Server.Model.Auth.UserRole", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            RoleId = new Guid("00000000-0000-0000-0000-000000000001")
                         });
                 });
 
@@ -615,6 +617,21 @@ namespace Nyarchive.Server.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.HasOne("Nyarchive.Server.Model.Auth.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Nyarchive.Server.Model.Auth.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.HasOne("Nyarchive.Server.Model.Auth.User", null)
@@ -698,21 +715,6 @@ namespace Nyarchive.Server.Migrations
                     b.Navigation("Article");
 
                     b.Navigation("Unit");
-                });
-
-            modelBuilder.Entity("Nyarchive.Server.Model.Auth.UserRole", b =>
-                {
-                    b.HasOne("Nyarchive.Server.Model.Auth.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Nyarchive.Server.Model.Auth.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Nyarchive.Server.Model.Product", b =>
