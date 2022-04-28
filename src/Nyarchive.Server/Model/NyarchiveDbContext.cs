@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Nyarchive.Server.Model.Auth;
 
 namespace Nyarchive.Server.Model
 {
-    public class NyarchiveDbContext: IdentityDbContext<Auth.User, Auth.Role, Guid>
+    public class NyarchiveDbContext: IdentityDbContext<User, Role, Guid>
     {
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleTransactionAdd> ArticleTransactionAdds { get; set; }
@@ -19,6 +21,7 @@ namespace Nyarchive.Server.Model
         {
             base.OnModelCreating(modelBuilder);
 
+            #region Master Data
             modelBuilder.Entity<Language>()
                 .HasData(
                     new Language { Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "English" },
@@ -154,6 +157,42 @@ namespace Nyarchive.Server.Model
                         QuantityOfUnit = (Decimal)250.0
                     }
                 );
+            #endregion
+
+            #region Roles & Default User
+            //admin-role
+            modelBuilder.Entity<Role>().HasData(
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Name = "admin",
+                        NormalizedName = "admin".ToUpper()
+                    }
+                );
+
+            //admin-user
+            //default password is empty
+            var PasswordHasher = new PasswordHasher<User>();
+            modelBuilder.Entity<User>().HasData(
+                    new User
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        UserName = "admin",
+                        NormalizedUserName = "admin".ToUpper(),
+                        PasswordHash = PasswordHasher.HashPassword(null, Role.RoleNames.Admin)
+                    }
+                );
+
+            //Assign the admin-role to the admin-user
+            //modelBuilder.Entity<IdentityUserRole<string>>().HasKey(iur => new { iur.RoleId, iur.UserId });
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(
+                new IdentityUserRole<Guid>
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                }
+            );
+            #endregion
         }
     }
 }

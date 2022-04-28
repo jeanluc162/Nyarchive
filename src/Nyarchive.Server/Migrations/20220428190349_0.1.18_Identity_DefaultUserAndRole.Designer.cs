@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nyarchive.Server.Model;
 
@@ -10,9 +11,10 @@ using Nyarchive.Server.Model;
 namespace Nyarchive.Server.Migrations
 {
     [DbContext(typeof(NyarchiveDbContext))]
-    partial class NyarchiveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428190349_0.1.18_Identity_DefaultUserAndRole")]
+    partial class _0118_Identity_DefaultUserAndRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -299,7 +301,7 @@ namespace Nyarchive.Server.Migrations
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ConcurrencyStamp = "86fb19d8-9fa9-4a18-b8e9-53bb49e6827f",
+                            ConcurrencyStamp = "105d752f-34f5-4be0-aa23-8efe8f213e55",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -378,11 +380,11 @@ namespace Nyarchive.Server.Migrations
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f8470cf2-5fff-4e7c-8204-0135b0f5353c",
+                            ConcurrencyStamp = "3b503a64-fb35-4984-a8bf-f92b98a9d86d",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFWbAu1jdg0NUefip9i2VYQCmn0BM5psUxrkWmUKVLX31cYS9eZlord6fTIH9eskRg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAC7P54UusoX1+eB1x+4bBKTQdkQuyjqIsW/Gm1+8BPmbO9j4/zUPoxh0ZH7saA/RQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "admin"
