@@ -165,8 +165,98 @@ namespace Nyarchive.Server.Model
                     new Role
                     {
                         Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                        Name = Role.RoleNames.Admin,
-                        NormalizedName = Role.RoleNames.Admin.ToUpper()
+                        Name = Role.RoleNames.ArticlesReader,
+                        NormalizedName = Role.RoleNames.ArticlesReader.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        Name = Role.RoleNames.ArticlesWriter,
+                        NormalizedName = Role.RoleNames.ArticlesWriter.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                        Name = Role.RoleNames.ArticleTransactionReader,
+                        NormalizedName = Role.RoleNames.ArticleTransactionReader.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                        Name = Role.RoleNames.ArticleTransactionWriter,
+                        NormalizedName = Role.RoleNames.ArticleTransactionWriter.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000005"),
+                        Name = Role.RoleNames.AssignedNutritionalValuesReader,
+                        NormalizedName = Role.RoleNames.AssignedNutritionalValuesReader.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+                        Name = Role.RoleNames.AssignedNutritionalValuesWriter,
+                        NormalizedName = Role.RoleNames.AssignedNutritionalValuesWriter.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000007"),
+                        Name = Role.RoleNames.LabelingReader,
+                        NormalizedName = Role.RoleNames.LabelingReader.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000008"),
+                        Name = Role.RoleNames.LabelingWriter,
+                        NormalizedName = Role.RoleNames.LabelingWriter.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000009"),
+                        Name = Role.RoleNames.LanguagesReader,
+                        NormalizedName = Role.RoleNames.LanguagesReader.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000010"),
+                        Name = Role.RoleNames.LanguagesWriter,
+                        NormalizedName = Role.RoleNames.LanguagesWriter.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000011"),
+                        Name = Role.RoleNames.ProductsReader,
+                        NormalizedName = Role.RoleNames.ProductsReader.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000012"),
+                        Name = Role.RoleNames.ProductsWriter,
+                        NormalizedName = Role.RoleNames.ProductsWriter.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000013"),
+                        Name = Role.RoleNames.UnitsReader,
+                        NormalizedName = Role.RoleNames.UnitsReader.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000014"),
+                        Name = Role.RoleNames.UnitsWriter,
+                        NormalizedName = Role.RoleNames.UnitsWriter.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000015"),
+                        Name = Role.RoleNames.UserReader,
+                        NormalizedName = Role.RoleNames.UserReader.ToUpper()
+                    },
+                    new Role
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000016"),
+                        Name = Role.RoleNames.UserWriter,
+                        NormalizedName = Role.RoleNames.UserWriter.ToUpper()
                     }
                 );
 
@@ -189,6 +279,81 @@ namespace Nyarchive.Server.Model
                 new UserRole
                 {
                     RoleId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000005"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000007"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000008"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000009"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000010"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000011"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000012"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000013"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000014"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000015"),
+                    UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+                },
+                new UserRole
+                {
+                    RoleId = Guid.Parse("00000000-0000-0000-0000-000000000016"),
                     UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
                 }
             );

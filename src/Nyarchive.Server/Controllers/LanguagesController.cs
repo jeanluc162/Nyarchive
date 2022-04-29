@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nyarchive.Server.Model;
+using Nyarchive.Server.Model.Auth;
 
 namespace Nyarchive.Server.Controllers
 {
@@ -23,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Languages
         [HttpGet]
+        [Authorize(Roles = Role.RoleNames.LanguagesReader)]
         public async Task<ActionResult<IEnumerable<Language>>> GetLanguages()
         {
             return await _context.Languages.ToListAsync();
@@ -30,6 +33,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Languages/5
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.RoleNames.LanguagesReader)]
         public async Task<ActionResult<Language>> GetLanguage(Guid id)
         {
             var language = await _context.Languages.FindAsync(id);
@@ -45,6 +49,7 @@ namespace Nyarchive.Server.Controllers
         // PUT: api/Languages/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = Role.RoleNames.LanguagesWriter)]
         public async Task<IActionResult> PutLanguage(Guid id, Language language)
         {
             if (id != language.Id)
@@ -76,6 +81,7 @@ namespace Nyarchive.Server.Controllers
         // POST: api/Languages
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = Role.RoleNames.LanguagesWriter)]
         public async Task<ActionResult<Language>> PostLanguage(Language language)
         {
             _context.Languages.Add(language);
@@ -86,6 +92,7 @@ namespace Nyarchive.Server.Controllers
 
         // DELETE: api/Languages/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.RoleNames.LanguagesWriter)]
         public async Task<IActionResult> DeleteLanguage(Guid id)
         {
             var language = await _context.Languages.FindAsync(id);

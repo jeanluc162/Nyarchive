@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nyarchive.Server.Model;
+using Nyarchive.Server.Model.Auth;
 
 namespace Nyarchive.Server.Controllers
 {
@@ -23,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/ArticleTransactionRemoves
         [HttpGet]
+        [Authorize(Roles = Role.RoleNames.ArticleTransactionReader)]
         public async Task<ActionResult<IEnumerable<ArticleTransactionRemove>>> GetArticleTransactionRemoves()
         {
             return await _context.ArticleTransactionRemoves.ToListAsync();
@@ -30,6 +33,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/ArticleTransactionRemoves/5
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.RoleNames.ArticleTransactionReader)]
         public async Task<ActionResult<ArticleTransactionRemove>> GetArticleTransactionRemove(Guid id)
         {
             var articleTransactionRemove = await _context.ArticleTransactionRemoves.FindAsync(id);
@@ -45,6 +49,7 @@ namespace Nyarchive.Server.Controllers
         // PUT: api/ArticleTransactionRemoves/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = Role.RoleNames.ArticleTransactionWriter)]
         public async Task<IActionResult> PutArticleTransactionRemove(Guid id, ArticleTransactionRemove articleTransactionRemove)
         {
             if (id != articleTransactionRemove.Id)
@@ -76,6 +81,7 @@ namespace Nyarchive.Server.Controllers
         // POST: api/ArticleTransactionRemoves
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = Role.RoleNames.ArticleTransactionWriter)]
         public async Task<ActionResult<ArticleTransactionRemove>> PostArticleTransactionRemove(ArticleTransactionRemove articleTransactionRemove)
         {
             _context.ArticleTransactionRemoves.Add(articleTransactionRemove);
@@ -86,6 +92,7 @@ namespace Nyarchive.Server.Controllers
 
         // DELETE: api/ArticleTransactionRemoves/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.RoleNames.ArticleTransactionWriter)]
         public async Task<IActionResult> DeleteArticleTransactionRemove(Guid id)
         {
             var articleTransactionRemove = await _context.ArticleTransactionRemoves.FindAsync(id);

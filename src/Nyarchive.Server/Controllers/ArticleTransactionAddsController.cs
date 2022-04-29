@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nyarchive.Server.Model;
+using Nyarchive.Server.Model.Auth;
 
 namespace Nyarchive.Server.Controllers
 {
@@ -23,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/ArticleTransactionAdds
         [HttpGet]
+        [Authorize(Roles = Role.RoleNames.ArticleTransactionReader)]
         public async Task<ActionResult<IEnumerable<ArticleTransactionAdd>>> GetArticleTransactionAdds()
         {
             return await _context.ArticleTransactionAdds.ToListAsync();
@@ -30,6 +33,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/ArticleTransactionAdds/5
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.RoleNames.ArticleTransactionReader)]
         public async Task<ActionResult<ArticleTransactionAdd>> GetArticleTransactionAdd(Guid id)
         {
             var articleTransactionAdd = await _context.ArticleTransactionAdds.FindAsync(id);
@@ -45,6 +49,7 @@ namespace Nyarchive.Server.Controllers
         // PUT: api/ArticleTransactionAdds/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = Role.RoleNames.ArticleTransactionWriter)]
         public async Task<IActionResult> PutArticleTransactionAdd(Guid id, ArticleTransactionAdd articleTransactionAdd)
         {
             if (id != articleTransactionAdd.Id)
@@ -76,6 +81,7 @@ namespace Nyarchive.Server.Controllers
         // POST: api/ArticleTransactionAdds
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = Role.RoleNames.ArticleTransactionWriter)]
         public async Task<ActionResult<ArticleTransactionAdd>> PostArticleTransactionAdd(ArticleTransactionAdd articleTransactionAdd)
         {
             _context.ArticleTransactionAdds.Add(articleTransactionAdd);
@@ -86,6 +92,7 @@ namespace Nyarchive.Server.Controllers
 
         // DELETE: api/ArticleTransactionAdds/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.RoleNames.ArticleTransactionWriter)]
         public async Task<IActionResult> DeleteArticleTransactionAdd(Guid id)
         {
             var articleTransactionAdd = await _context.ArticleTransactionAdds.FindAsync(id);

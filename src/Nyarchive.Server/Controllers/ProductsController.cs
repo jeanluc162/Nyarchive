@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nyarchive.Server.Model;
+using Nyarchive.Server.Model.Auth;
 
 namespace Nyarchive.Server.Controllers
 {
@@ -23,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Products
         [HttpGet]
+        [Authorize(Roles = Role.RoleNames.ProductsReader)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _context.Products.ToListAsync();
@@ -30,6 +33,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Products/5
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.RoleNames.ProductsReader)]
         public async Task<ActionResult<Product>> GetProduct(Guid id)
         {
             var product = await _context.Products.FindAsync(id);
@@ -45,6 +49,7 @@ namespace Nyarchive.Server.Controllers
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = Role.RoleNames.ProductsWriter)]
         public async Task<IActionResult> PutProduct(Guid id, Product product)
         {
             if (id != product.Id)
@@ -76,6 +81,7 @@ namespace Nyarchive.Server.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = Role.RoleNames.ProductsWriter)]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
             _context.Products.Add(product);
@@ -86,6 +92,7 @@ namespace Nyarchive.Server.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.RoleNames.ProductsWriter)]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
             var product = await _context.Products.FindAsync(id);

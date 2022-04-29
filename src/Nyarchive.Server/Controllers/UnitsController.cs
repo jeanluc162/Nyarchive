@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nyarchive.Server.Model;
+using Nyarchive.Server.Model.Auth;
 
 namespace Nyarchive.Server.Controllers
 {
@@ -23,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Units
         [HttpGet]
+        [Authorize(Roles = Role.RoleNames.UnitsReader)]
         public async Task<ActionResult<IEnumerable<Unit>>> GetUnits()
         {
             return await _context.Units.ToListAsync();
@@ -30,6 +33,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Units/5
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.RoleNames.UnitsReader)]
         public async Task<ActionResult<Unit>> GetUnit(Guid id)
         {
             var unit = await _context.Units.FindAsync(id);
@@ -45,6 +49,7 @@ namespace Nyarchive.Server.Controllers
         // PUT: api/Units/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = Role.RoleNames.UnitsWriter)]
         public async Task<IActionResult> PutUnit(Guid id, Unit unit)
         {
             if (id != unit.Id)
@@ -76,6 +81,7 @@ namespace Nyarchive.Server.Controllers
         // POST: api/Units
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = Role.RoleNames.UnitsWriter)]
         public async Task<ActionResult<Unit>> PostUnit(Unit unit)
         {
             _context.Units.Add(unit);
@@ -86,6 +92,7 @@ namespace Nyarchive.Server.Controllers
 
         // DELETE: api/Units/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.RoleNames.UnitsWriter)]
         public async Task<IActionResult> DeleteUnit(Guid id)
         {
             var unit = await _context.Units.FindAsync(id);

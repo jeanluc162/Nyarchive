@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nyarchive.Server.Model;
+using Nyarchive.Server.Model.Auth;
 
 namespace Nyarchive.Server.Controllers
 {
@@ -23,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/AssignedNutritionalValues
         [HttpGet]
+        [Authorize(Roles = Role.RoleNames.AssignedNutritionalValuesReader)]
         public async Task<ActionResult<IEnumerable<AssignedNutritionalValue>>> GetAssignedNutritionalValues()
         {
             return await _context.AssignedNutritionalValues.ToListAsync();
@@ -30,6 +33,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/AssignedNutritionalValues/5
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.RoleNames.AssignedNutritionalValuesReader)]
         public async Task<ActionResult<AssignedNutritionalValue>> GetAssignedNutritionalValue(Guid id)
         {
             var assignedNutritionalValue = await _context.AssignedNutritionalValues.FindAsync(id);
@@ -45,6 +49,7 @@ namespace Nyarchive.Server.Controllers
         // PUT: api/AssignedNutritionalValues/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = Role.RoleNames.AssignedNutritionalValuesWriter)]
         public async Task<IActionResult> PutAssignedNutritionalValue(Guid id, AssignedNutritionalValue assignedNutritionalValue)
         {
             if (id != assignedNutritionalValue.Id)
@@ -76,6 +81,7 @@ namespace Nyarchive.Server.Controllers
         // POST: api/AssignedNutritionalValues
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = Role.RoleNames.AssignedNutritionalValuesWriter)]
         public async Task<ActionResult<AssignedNutritionalValue>> PostAssignedNutritionalValue(AssignedNutritionalValue assignedNutritionalValue)
         {
             _context.AssignedNutritionalValues.Add(assignedNutritionalValue);
@@ -86,6 +92,7 @@ namespace Nyarchive.Server.Controllers
 
         // DELETE: api/AssignedNutritionalValues/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.RoleNames.AssignedNutritionalValuesWriter)]
         public async Task<IActionResult> DeleteAssignedNutritionalValue(Guid id)
         {
             var assignedNutritionalValue = await _context.AssignedNutritionalValues.FindAsync(id);

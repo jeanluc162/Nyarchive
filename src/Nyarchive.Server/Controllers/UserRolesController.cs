@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/UserRoles
         [HttpGet]
+        [Authorize(Roles = Role.RoleNames.UserReader)]
         public async Task<ActionResult<IEnumerable<UserRole>>> GetUserRoles()
         {
             return await _context.UserRoles.ToListAsync();
@@ -31,6 +33,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/UserRoles/5
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.RoleNames.UserReader)]
         public async Task<ActionResult<UserRole>> GetUserRole(Guid id)
         {
             var userRole = await _context.UserRoles.FindAsync(id);
@@ -46,6 +49,7 @@ namespace Nyarchive.Server.Controllers
         // PUT: api/UserRoles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = Role.RoleNames.UserWriter)]
         public async Task<IActionResult> PutUserRole(Guid id, UserRole userRole)
         {
             if (id != userRole.UserId)
@@ -77,6 +81,7 @@ namespace Nyarchive.Server.Controllers
         // POST: api/UserRoles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = Role.RoleNames.UserWriter)]
         public async Task<ActionResult<UserRole>> PostUserRole(UserRole userRole)
         {
             _context.UserRoles.Add(userRole);
@@ -101,6 +106,7 @@ namespace Nyarchive.Server.Controllers
 
         // DELETE: api/UserRoles/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.RoleNames.UserWriter)]
         public async Task<IActionResult> DeleteUserRole(Guid id)
         {
             var userRole = await _context.UserRoles.FindAsync(id);

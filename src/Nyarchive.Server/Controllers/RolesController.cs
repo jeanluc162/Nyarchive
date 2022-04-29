@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Roles
         [HttpGet]
+        [Authorize(Roles = Role.RoleNames.UserReader)]
         public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
         {
             return await _context.Roles.ToListAsync();
@@ -31,6 +33,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Roles/5
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.RoleNames.UserReader)]
         public async Task<ActionResult<Role>> GetRole(Guid id)
         {
             var role = await _context.Roles.FindAsync(id);
@@ -42,7 +45,7 @@ namespace Nyarchive.Server.Controllers
 
             return role;
         }
-
+        /*
         // PUT: api/Roles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -100,7 +103,7 @@ namespace Nyarchive.Server.Controllers
 
             return NoContent();
         }
-
+        */
         private bool RoleExists(Guid id)
         {
             return _context.Roles.Any(e => e.Id == id);

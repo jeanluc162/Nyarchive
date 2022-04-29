@@ -12,7 +12,6 @@ using Nyarchive.Server.Model.Auth;
 
 namespace Nyarchive.Server.Controllers
 {
-    [Authorize(Roles = Role.RoleNames.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -26,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Users
         [HttpGet]
+        [Authorize(Roles = Role.RoleNames.UserReader)]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
@@ -33,6 +33,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.RoleNames.UserReader)]
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -48,6 +49,7 @@ namespace Nyarchive.Server.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = Role.RoleNames.UserWriter)]
         public async Task<IActionResult> PutUser(Guid id, User user)
         {
             if (id != user.Id)
@@ -79,6 +81,7 @@ namespace Nyarchive.Server.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = Role.RoleNames.UserWriter)]
         public async Task<ActionResult<User>> PostUser(User user)
         {
             _context.Users.Add(user);
@@ -89,6 +92,7 @@ namespace Nyarchive.Server.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.RoleNames.UserWriter)]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);

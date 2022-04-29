@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nyarchive.Server.Model;
+using Nyarchive.Server.Model.Auth;
 
 namespace Nyarchive.Server.Controllers
 {
@@ -23,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Labels
         [HttpGet]
+        [Authorize(Roles = Role.RoleNames.LabelingReader)]
         public async Task<ActionResult<IEnumerable<Label>>> GetLabels()
         {
             return await _context.Labels.ToListAsync();
@@ -30,6 +33,7 @@ namespace Nyarchive.Server.Controllers
 
         // GET: api/Labels/5
         [HttpGet("{id}")]
+        [Authorize(Roles = Role.RoleNames.LabelingReader)]
         public async Task<ActionResult<Label>> GetLabel(Guid id)
         {
             var label = await _context.Labels.FindAsync(id);
@@ -45,6 +49,7 @@ namespace Nyarchive.Server.Controllers
         // PUT: api/Labels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = Role.RoleNames.LabelingWriter)]
         public async Task<IActionResult> PutLabel(Guid id, Label label)
         {
             if (id != label.Id)
@@ -76,6 +81,7 @@ namespace Nyarchive.Server.Controllers
         // POST: api/Labels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = Role.RoleNames.LabelingWriter)]
         public async Task<ActionResult<Label>> PostLabel(Label label)
         {
             _context.Labels.Add(label);
@@ -86,6 +92,7 @@ namespace Nyarchive.Server.Controllers
 
         // DELETE: api/Labels/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = Role.RoleNames.LabelingWriter)]
         public async Task<IActionResult> DeleteLabel(Guid id)
         {
             var label = await _context.Labels.FindAsync(id);
