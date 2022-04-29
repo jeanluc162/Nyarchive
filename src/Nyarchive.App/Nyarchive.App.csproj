@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-android</TargetFrameworks>
@@ -49,13 +49,28 @@
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<!-- Required - WinUI does not yet have buildTransitive for everything -->
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
-		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.3" />
+		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <!--<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.1" />-->
+	  <!--<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.3" />-->
+	  <PackageReference Include="NSwag.MSBuild" Version="13.15.10">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	</ItemGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<OutputType>WinExe</OutputType>
 		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
 	</PropertyGroup>
-	
+
+  <Target Name="GenerateApiClientSourceCode" BeforeTargets="CoreCompile;PrepareResource">
+    <Exec Command="$(NSwagExe) run nyarchive.nswag /variables:Configuration=$(Configuration),Output=$(IntermediateOutputPath)\NyarchiveClient.generated.cs" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)\NyarchiveClient.generated.cs" />
+    </ItemGroup>
+  </Target>
 </Project>
