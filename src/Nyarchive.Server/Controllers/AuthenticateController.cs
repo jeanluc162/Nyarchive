@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Nyarchive.Server.Model.Auth;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -24,6 +25,7 @@ namespace Nyarchive.Server.Controllers
 
         [HttpPost]
         [Route("login")]
+        [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Login([FromForm] String username, [FromForm] String password)
         {
             var user = await userManager.FindByNameAsync(username);
@@ -52,7 +54,7 @@ namespace Nyarchive.Server.Controllers
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
-                return Ok(new
+                return Ok(new LoginResponse
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
