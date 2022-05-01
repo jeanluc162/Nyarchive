@@ -65,7 +65,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="AddServerPage.xaml">
+	  <Compile Update="Views\ServerSettingsPage.xaml.cs">
+	    <DependentUpon>ServerSettingsPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="AppShell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ServerSettingsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
@@ -75,7 +84,7 @@
 		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
 	</PropertyGroup>
 
-  <Target Name="GenerateApiClientSourceCode" BeforeTargets="CoreCompile;PrepareResource">
+  <Target Name="GenerateApiClientSourceCode" BeforeTargets="CoreCompile;PrepareResource;XamlPreCompile">
     <Exec Command="$(NSwagExe) run nyarchive.nswag /variables:Configuration=$(Configuration),Output=$(IntermediateOutputPath)\NyarchiveClient.generated.cs" />
     <ItemGroup>
       <Compile Include="$(IntermediateOutputPath)\NyarchiveClient.generated.cs" />
